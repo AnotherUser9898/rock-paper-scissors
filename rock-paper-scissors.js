@@ -1,3 +1,25 @@
+let playerScore = 0;
+let computerScore = 0;
+let singleRoundResult = document.querySelector('#single-round-result');
+let finalRoundResult = document.querySelector(".full-game-result");
+let playerScoreDiv = document.querySelector(".player");
+let computerScoreDiv = document.querySelector(".computer");
+let buttonContainer = document.querySelectorAll("button");
+buttonContainer.forEach((button) => {
+        button.addEventListener("click",() => {
+                console.log(button.textContent)
+                let player = button.innerText;
+                playRound(button.innerText,getComputerChoice());
+                if (playerScore == 5) {
+                        finalRoundResult.textContent = "You won";
+                } else if (computerScore == 5) {
+                        finalRoundResult.textContent = "Computer won"
+                }
+        });
+})
+
+
+
 
 function getComputerChoice() {
         const choices = ["Rock","Paper","Scissors"];
@@ -12,46 +34,37 @@ function getComputerChoice() {
 
 function playRound(playerChoice,computerChoice) {
         if (playerChoice.toUpperCase() == computerChoice.toUpperCase()) {
-                return playRound(prompt("Please enter your choice"),getComputerChoice());
+                alert("Tie! Both selected the same option");
         }
         if (playerChoice.toUpperCase() == "ROCK" && computerChoice.toUpperCase() == "SCISSORS") {
-                return "You win! Rock beats Scissors";
+                playerScore += 1;
+                playerScoreDiv.textContent = `Player Score: ${playerScore}`
+                singleRoundResult.textContent = "You win! Rock beats Scissors";
         }
         else if (playerChoice.toUpperCase() == "SCISSORS" && computerChoice.toUpperCase() == "ROCK") {
-                return "You lose! Rock beats Scissors";
+                ComputerScore += 1;
+                computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                singleRoundResult.textContent = "You lose! Rock beats Scissors";
         }
         else if (playerChoice.toUpperCase() == "ROCK" && computerChoice.toUpperCase() == "PAPER") {
-                return "You lose! Paper beats Rock";
+                computerScore += 1;
+                computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                singleRoundResult.textContent = "You lose! Paper beats Rock";
         }
         else if (playerChoice.toUpperCase() == "PAPER" && computerChoice.toUpperCase() == "SCISSORS") {
-                return "You lose! Scissors beats Paper";
+                computerScore += 1;
+                computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                singleRoundResult.textContent = "You lose! Scissors beats Paper";
         }
         else if (playerChoice.toUpperCase() == "PAPER" && computerChoice.toUpperCase() == "ROCK") {
-                return "You win! Paper beats Rock";
+                playerScore += 1;
+                playerScoreDiv.textContent = `Player Score: ${playerScore}`
+                singleRoundResult.textContent = "You win! Paper beats Rock";
         }
         else if (playerChoice.toUpperCase() == "SCISSORS" && computerChoice.toUpperCase() == "PAPER") {
-                return "You win! Scissors beats Paper";
+                playerScore += 1;
+                playerScoreDiv.textContent = `Player Score: ${playerScore}`
+                singleRoundResult.textContent = "You win! Scissors beats Paper";
         }
 
 }
-
-function game() {
-        let playerScore = 0;
-        let computerScore = 0;
-        for(let i = 0; i < 5; i++) {
-                let playerChoice = prompt("Please enter your choice");
-                let computerChoice = getComputerChoice();
-                let result = playRound(playerChoice,computerChoice);
-                console.log(result);
-                if (result.at(4) == "w") {
-                        playerScore += 1;
-                } else {
-                        computerScore += 1;
-                }
-
-        }
-
-        console.log(playerScore > computerScore ? "You win": "Computer wins");
-}
-
-game();
